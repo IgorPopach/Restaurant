@@ -15,6 +15,7 @@ class App extends Component {
   }
   callApi = async () => {
     const response = await fetch('/api/hello');
+    console.log('GET');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;
@@ -30,6 +31,9 @@ class App extends Component {
     });
     const body = await response.text();
     this.setState({ responseToPost: body });
+    this.callApi()
+      .then(res => this.setState({ response: res.express }))
+      .catch(err => console.log(err));
   };
 
   render() {
