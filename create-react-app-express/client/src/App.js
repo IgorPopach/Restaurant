@@ -20,23 +20,23 @@ class App extends Component {
   // then we incorporate a polling logic so that we can easily see if our db has 
   // changed and implement those changes into our UI
 
-  // componentDidMount() {
-  //   this.getDataFromDb();
-  //   if (!this.state.intervalIsSet) {
-  //     let interval = setInterval(this.getDataFromDb, 5000);
-  //     this.setState({ intervalIsSet: interval });
-  //   }
-  // }
+  componentDidMount() {
+    this.getDataFromDb();
+    if (!this.state.intervalIsSet) {
+      let interval = setInterval(this.getDataFromDb, 5000);
+      this.setState({ intervalIsSet: interval });
+    }
+  }
 
   // never let a process live forever 
   // always kill a process everytime we are done using it
 
-  // componentWillUnmount() {
-  //   if (this.state.intervalIsSet) {
-  //     clearInterval(this.state.intervalIsSet);
-  //     this.setState({ intervalIsSet: null });
-  //   }
-  // }
+  componentWillUnmount() {
+    if (this.state.intervalIsSet) {
+      clearInterval(this.state.intervalIsSet);
+      this.setState({ intervalIsSet: null });
+    }
+  }
 
   // just a note, here, in the front end, we use the id key of our data object 
   // in order to identify which we want to Update or delete.
@@ -72,7 +72,7 @@ class App extends Component {
   deleteFromDB = idTodelete => {
     let objIdToDelete = null;
     this.state.data.forEach(dat => {
-      if (dat.id == idTodelete) {
+      if (dat.id === idTodelete) {
         objIdToDelete = dat._id;
       }
     });
@@ -90,7 +90,7 @@ class App extends Component {
   updateDB = (idToUpdate, updateToApply) => {
     let objIdToUpdate = null;
     this.state.data.forEach(dat => {
-      if (dat.id == idToUpdate) {
+      if (dat.id === idToUpdate) {
         objIdToUpdate = dat._id;
       }
     });
@@ -115,6 +115,8 @@ class App extends Component {
       status: data.status
     });
   };
+
+  
   // here is our UI
   // it is easy to understand their functions when you 
   // see them render into our screen

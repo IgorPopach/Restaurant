@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Table = require('./models/modelTable');
+const Table = require('./../models/modelTable');
 
 // router.get("/getData", (req, res) => {
 //     Table.find((err, data) => {

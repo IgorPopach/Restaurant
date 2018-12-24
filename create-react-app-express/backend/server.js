@@ -72,6 +72,7 @@ router.delete("/deleteData", (req, res) => {
 // this is our create methid
 // this method adds new data in our database
 router.post("/putData", (req, res) => {
+  console.log('putData',req)
   let data = new Data();
   const { id, message } = req.body;
 
@@ -89,7 +90,26 @@ router.post("/putData", (req, res) => {
   });
 });
 
-app.use('/addTable', addtableRouter);
+// app.use('/addTable', addtableRouter);
+router.post('/api/addTable', (req, res) => {
+  let data = new Table();
+  
+  const { id, status, tableName } = req.body;
+
+  if ((!id && id !== 0) || !status || !tableName) {
+    return res.json({
+      success: false,
+      error: "INVALID INPUTS"
+    });
+  }
+  data.tableName = tableName;
+  data.status = status;
+  data.id = id;
+  data.save(err => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true });
+  });
+});
 // app.use('/getData', addtableRouter);
 
 // append /api for our http requests
