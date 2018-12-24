@@ -11,9 +11,9 @@ const Table = require('./../models/modelTable');
 
 router.post('/addTable', (req, res) => {
     let data = new Table();
-    
+
     const { id, status, tableName } = req.body;
-  
+
     if ((!id && id !== 0) || !status || !tableName) {
       return res.json({
         success: false,

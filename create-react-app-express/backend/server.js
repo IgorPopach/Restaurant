@@ -44,6 +44,7 @@ app.use(logger("dev"));
 
 router.get("/getData", (req, res) => {
   Table.find((err, data) => {
+    // console.log(req);
     if (err) return res.json({ success: false, error: err });
     return res.json({ success: true, data: data });
   });
@@ -72,7 +73,7 @@ router.delete("/deleteData", (req, res) => {
 // this is our create methid
 // this method adds new data in our database
 router.post("/putData", (req, res) => {
-  console.log('putData',req)
+  // console.log('putData',req)
   let data = new Data();
   const { id, message } = req.body;
 
@@ -91,9 +92,9 @@ router.post("/putData", (req, res) => {
 });
 
 // app.use('/addTable', addtableRouter);
-router.post('/api/addTable', (req, res) => {
+router.post('/addTable', (req, res) => {
   let data = new Table();
-  
+
   const { id, status, tableName } = req.body;
 
   if ((!id && id !== 0) || !status || !tableName) {
