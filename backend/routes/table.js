@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Table = require('./../models/modelTable');
+const Table = require('../models/modelTable');
 
 // this is our get method
 // this method fetches all available data in our database

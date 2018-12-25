@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import Table from './components/Table'
+import Table from './components/Table';
+import Dishes from './components/Dishes'
 
 class App extends Component {
   state = {
     data: [],
+    dishesData: [],
     id: 0,
     message: null,
     status: null,
@@ -95,10 +97,29 @@ class App extends Component {
     });
   };
 
+  // putInfoToDB = data => {
+  //   console.log('dishes data',data)
+  //   let currentIds = this.state.dishesData.map(data => data.id);
+  //   let idToBeAdded = 0;
+  //   while (currentIds.includes(idToBeAdded)) {
+  //     ++idToBeAdded;
+  //   }
+  //   axios.post("/api/Dishes/add", {
+  //     id: idToBeAdded,
+  //     category: data.category,
+  //     name: data.name,
+  //     ingredients: data.ingredients,
+  //     description: data.description,
+  //     weight: data.weight,
+  //     price: data.price
+  //   });
+  // };
+
   render() {
     return (
       <div>
         <Table putStatusToDB={this.putStatusToDB} deleteFromDB={this.deleteFromDB} updateDB={this.updateDB} data = {this.state.data} />
+        <Dishes putInfoToDB={this.putInfoToDB} dishesData = {this.state.dishesData} />
       </div>
     );
   }

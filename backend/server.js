@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const addtableRouter = require('./routes/addtable');
+const TableRouter = require('./routes/table');
+const DishesRouter = require('./routes/dishes');
 
 const API_PORT = 3001;
 const app = express();
@@ -44,7 +45,8 @@ app.use(logger("dev"));
 // append /api for our http requests
 app.use("/api", router);
 
-app.use('/api/Table', addtableRouter);
+app.use('/api/Table', TableRouter);
+app.use('/api/Dishes', DishesRouter);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));

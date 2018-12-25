@@ -9,7 +9,7 @@ export default class Table extends Component {
                     {data.length <= 0
                         ? "NO DB ENTRIES YET"
                         : data.map(dat => (
-                            <li style={{ padding: "10px" }} key={data._id}>
+                            <li style={{ padding: "10px" }} key={dat._id}>
                             <span style={{ color: "gray" }}> id: </span> {dat.id} <br />
                             <span style={{ color: "gray" }}> table: </span> {dat.tableName} <br />
                             <span style={{ color: "gray" }}> status: </span> {dat.status}
