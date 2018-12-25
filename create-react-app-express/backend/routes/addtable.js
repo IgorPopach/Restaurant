@@ -2,14 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Table = require('./../models/modelTable');
 
-// router.get("/getData", (req, res) => {
-//     Table.find((err, data) => {
-//       if (err) return res.json({ success: false, error: err });
-//       return res.json({ success: true, data: data });
-//     });
-// });
+router.use(function timeLog(req, res, next) {
+    console.log('Time: ', Date.now());
+    next();
+});
 
-router.post('/addTable', (req, res) => {
+router.post('/', (req, res) => {
   let data = new Table();
 
   const { id, status, tableName } = req.body;

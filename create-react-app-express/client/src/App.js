@@ -100,7 +100,7 @@ class App extends Component {
     while (currentIds.includes(idToBeAdded)) {
       ++idToBeAdded;
     }
-    axios.post("/api/addTable", {
+    axios.post("/addTable", {
       id: idToBeAdded,
       tableName: data.tableName,
       status: data.status
