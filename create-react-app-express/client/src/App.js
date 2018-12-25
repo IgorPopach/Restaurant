@@ -20,13 +20,13 @@ class App extends Component {
   // then we incorporate a polling logic so that we can easily see if our db has 
   // changed and implement those changes into our UI
 
-  componentDidMount() {
-    this.getDataFromDb();
-    if (!this.state.intervalIsSet) {
-      let interval = setInterval(this.getDataFromDb, 88000);
-      this.setState({ intervalIsSet: interval });
-    }
-  }
+  // componentDidMount() {
+  //   this.getDataFromDb();
+  //   if (!this.state.intervalIsSet) {
+  //     let interval = setInterval(this.getDataFromDb, 88000);
+  //     this.setState({ intervalIsSet: interval });
+  //   }
+  // }
 
   // never let a process live forever 
   // always kill a process everytime we are done using it
@@ -51,35 +51,25 @@ class App extends Component {
       .then(res => this.setState({ data: res.data }));
   };
 
-  // our put method that uses our backend api
-  // to create new query into our data base
-  putDataToDB = message => {
-    let currentIds = this.state.data.map(data => data.id);
-    let idToBeAdded = 0;
-    while (currentIds.includes(idToBeAdded)) {
-      ++idToBeAdded;
-    }
-
-    axios.post("/api/putData", {
-      id: idToBeAdded,
-      message: message
-    });
-  };
-
 
   // our delete method that uses our backend api 
   // to remove existing database information
   deleteFromDB = idTodelete => {
     let objIdToDelete = null;
     this.state.data.forEach(dat => {
-      if (dat.id === idTodelete) {
+      // console.log('dat._id:  ',dat._id)
+      // console.log('idTodelete:  ',idTodelete)
+      // console.log('dat.id:  ',dat.id)
+      if (dat.id == idTodelete) {
+        console.log('ok',dat.id)
         objIdToDelete = dat._id;
+        console.log('objIdToDelete',objIdToDelete)
       }
     });
 
-    axios.delete("/api/deleteData", {
+    axios.delete("/api/deleteTable", {
       data: {
-        id: objIdToDelete
+        _id: objIdToDelete
       }
     });
   };
@@ -95,13 +85,14 @@ class App extends Component {
       }
     });
 
-    axios.post("/api/updateData", {
+    axios.post("/api/updateTable", {
       id: objIdToUpdate,
-      update: { message: updateToApply }
+      update: { status: updateToApply }
     });
   };
 
-
+  // our put method that uses our backend api
+  // to create new query into our data base
   putStatusToDB = data => {
     console.log('data',data)
     let currentIds = this.state.data.map(data => data.id);
@@ -130,22 +121,11 @@ class App extends Component {
             : data.map(dat => (
                 <li style={{ padding: "10px" }} key={data._id}>
                   <span style={{ color: "gray" }}> id: </span> {dat.id} <br />
-                  <span style={{ color: "gray" }}> data: </span>
-                  {dat.status}
+                  <span style={{ color: "gray" }}> table: </span> {dat.tableName} <br />
+                  <span style={{ color: "gray" }}> data: </span> {dat.status}
                 </li>
               ))}
         </ul>
-        <div style={{ padding: "10px" }}>
-          <input
-            type="text"
-            onChange={e => this.setState({ message: e.target.value })}
-            placeholder="add something in the database"
-            style={{ width: "200px" }}
-          />
-          <button onClick={() => this.putDataToDB(this.state.message)}>
-            ADD
-          </button>
-        </div>
         <div style={{ padding: "10px" }}>
           <input
             type="text"
