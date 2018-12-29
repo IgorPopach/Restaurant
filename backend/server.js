@@ -31,20 +31,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(logger("dev"));
 
-// this is our update method
-// this method overwrites existing data in our database
-// router.post("/updateTable", (req, res) => {
-//   const { id, update } = req.body;
-//   const Table = require('./models/modelTable');
-//   Table.findOneAndUpdate({ "_id" : id }, update, err => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true });
-//   });
-// });
-
-// append /api for our http requests
-app.use("/api", router);
-
 app.use('/api/Table', TableRouter);
 app.use('/api/Dishes', DishesRouter);
 

@@ -2,8 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Table = require('../models/modelTable');
 
-// this is our get method
-// this method fetches all available data in our database
+/**
+ * this is our get method
+ * this method fetches all available data in our database
+ */
+
 router.get("/", (req, res) => {
   Table.find((err, data) => {
     // console.log(req);
@@ -20,7 +23,7 @@ router.post('/add', (req, res) => {
 
   const { id, status, tableName } = req.body;
 
-  if ((!id && id !== 0) || !status || !tableName) {
+  if (!id || !status || !tableName) {
     return res.json({
       success: false,
       error: "INVALID INPUTS"
