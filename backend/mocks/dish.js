@@ -1,4 +1,4 @@
-{
+const dish = {
   category: "salad",
   name: "cezar",
   ingredients: ["chiken","salad","egs", "becon", "sous", "parmegano"],

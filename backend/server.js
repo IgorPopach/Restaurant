@@ -7,10 +7,8 @@ const DishesRouter = require('./routes/dishes');
 
 const API_PORT = 3001;
 const app = express();
-const router = express.Router();
 
-// this is our MongoDB database
-const dbRoute = "mongodb://restaurant:restaurant1@ds139614.mlab.com:39614/restaurant";
+const dbRoute = require('./constants/db');
 
 // connects our back end code with the database
 mongoose.connect(
