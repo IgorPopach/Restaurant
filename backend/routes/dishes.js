@@ -14,10 +14,9 @@ router.post('/add', (req, res) => {
     console.log('/addDishes work')
     let data = new Dishes();
   
-    const { id, category, name, ingredients, description, weight, price, image } = req.body;
-    console.log('{ id, category, name, ingredients, description, weight, price, image } ==>', id, category, name, ingredients, description, weight, price, image)
-    if ((!id && id !== 0) || !category || !name || !ingredients || !description || !weight || !price || !image) {
-        console.log('0_o')
+    const { category, name, ingredients, description, weight, price, image, avgTime } = req.body;
+    console.log('{ id, category, name, ingredients, description, weight, price, image } ==>', category, name, ingredients, description, weight, price, image, avgTime)
+    if (!category || !name || !ingredients || !description || !weight || !price || !image || !avgTime) {
       return res.json({
         success: false,
         error: "INVALID INPUTS"
@@ -25,12 +24,12 @@ router.post('/add', (req, res) => {
     }
     data.category = category;
     data.name = name;
-    data.id = id;
     data.ingredients = ingredients;
     data.description = description;
     data.weight = weight;
     data.price = price;
     data.image = image;
+    data.avgTime = avgTime;
     console.log('data addDishes ==>', data)
     data.save(err => {
       if (err) return res.json({ success: false, error: err });

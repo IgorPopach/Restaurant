@@ -5,5 +5,6 @@ const dish = {
   description: "bla bla bla",
   weight: 250,
   price: 3.5,
+  image: "String",
   avgTime: 20,
 }

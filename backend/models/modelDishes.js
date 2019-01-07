@@ -9,7 +9,8 @@ const DishesSchema = new Schema(
         description: String,
         weight: Number,
         price: Number,
-        image: String
+        image: String,
+        avgTime: Number
     },
     { timestamps: true }
 );

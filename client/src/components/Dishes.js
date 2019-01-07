@@ -4,7 +4,6 @@ import axios from "axios";
 export default class Dishes extends Component {
     state = {
         dishesData: [],
-        id: 0,
         intervalIsSet: false,
     };
     componentDidMount() {
@@ -35,13 +34,7 @@ export default class Dishes extends Component {
     
     putInfoToDB = data => {
         console.log('dishes data',data)
-        let currentIds = this.state.dishesData.map(data => data.id);
-        let idToBeAdded = 0;
-        while (currentIds.includes(idToBeAdded)) {
-            ++idToBeAdded;
-        }
         axios.post("/api/Dishes/add", {
-            id: idToBeAdded,
             category: data.category,
             name: data.name,
             ingredients: data.ingredients,
@@ -63,7 +56,6 @@ export default class Dishes extends Component {
                             <div>
                                 <li style={{ padding: "10px", display: "inline-block" }} key={data._id}>
                                     <span>Dishes:</span> <br />
-                                    <span style={{ color: "gray" }}> id: </span> {dat.id} <br />
                                     <span style={{ color: "gray" }}> category: </span> {dat.category} <br />
                                     <span style={{ color: "gray" }}> name: </span> {dat.name} <br />
                                     <span style={{ color: "gray" }}> ingredients: </span> {dat.ingredients} <br />
