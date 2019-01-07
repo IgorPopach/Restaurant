@@ -2,35 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 
 export default class Dishes extends Component {
-    state = {
-        dishesData: [],
-        intervalIsSet: false,
-    };
-    componentDidMount() {
-        this.getDataFromDb();
-        if (!this.state.intervalIsSet) {
-          let interval = setInterval(this.getDataFromDb, 88000);
-          this.setState({ intervalIsSet: interval });
-        }
-    }
-    
-    // never let a process live forever 
-    // always kill a process everytime we are done using it
-
-    componentWillUnmount() {
-        if (this.state.intervalIsSet) {
-            clearInterval(this.state.intervalIsSet);
-            this.setState({ intervalIsSet: null });
-        }
-    }
-
-    // our first get method that uses our backend api to 
-    // fetch data from our data base
-    getDataFromDb = () => {
-        fetch("/api/Dishes")
-            .then(data => data.json())
-            .then(res => this.setState({ dishesData: res.dishesData }));
-        };
     
     putInfoToDB = data => {
         console.log('dishes data',data)
@@ -41,32 +12,13 @@ export default class Dishes extends Component {
             description: data.description,
             weight: data.weight,
             price: data.price,
+            avgTime: data.avgTime,
             image: data.image,
         });
     };
     render(){
-        const data = this.state.dishesData
-        console.log('data',data)
         return (
             <div>
-                <ul>
-                    {data.length <= 0
-                        ? "NO DB DISHES ENTRIES YET"
-                        : data.map(dat => (
-                            <div>
-                                <li style={{ padding: "10px", display: "inline-block" }} key={data._id}>
-                                    <span>Dishes:</span> <br />
-                                    <span style={{ color: "gray" }}> category: </span> {dat.category} <br />
-                                    <span style={{ color: "gray" }}> name: </span> {dat.name} <br />
-                                    <span style={{ color: "gray" }}> ingredients: </span> {dat.ingredients} <br />
-                                    <span style={{ color: "gray" }}> description: </span> {dat.description} <br />
-                                    <span style={{ color: "gray" }}> weight: </span> {dat.weight} <br />
-                                    <span style={{ color: "gray" }}> price: </span> {dat.price}
-                                </li> 
-                                <img style={{ display: "inline-block" }} src={dat.image} alt={dat.name} />
-                            </div>
-                        ))}
-                </ul>
                 <div style={{ padding: "10px" }}>
                     <input
                         type="text"
@@ -104,6 +56,12 @@ export default class Dishes extends Component {
                         placeholder="add price"
                         style={{ width: "200px" }}
                     /> <br />
+                    <input
+                        type="text"
+                        onChange={e => this.setState({ avgTime: e.target.value })}
+                        placeholder="add avgtime"
+                        style={{ width: "200px" }}
+                    />
                     <input
                         type="text"
                         onChange={e => this.setState({ image: e.target.value })}

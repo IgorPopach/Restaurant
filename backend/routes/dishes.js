@@ -15,7 +15,7 @@ router.post('/add', (req, res) => {
     let data = new Dishes();
   
     const { category, name, ingredients, description, weight, price, image, avgTime } = req.body;
-    console.log('{ id, category, name, ingredients, description, weight, price, image } ==>', category, name, ingredients, description, weight, price, image, avgTime)
+    console.log('{ category, name, ingredients, description, weight, price, image, avgTime } ==>', category, name, ingredients, description, weight, price, image, avgTime)
     if (!category || !name || !ingredients || !description || !weight || !price || !image || !avgTime) {
       return res.json({
         success: false,

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import Table from './components/Table';
-import Dishes from './components/Dishes'
+import AddDishes from './components/AddDishes';
+import Menu from './components/Menu';
 
 class App extends Component {
   state = {
@@ -102,7 +103,8 @@ class App extends Component {
     return (
       <div>
         <Table putStatusToDB={this.putStatusToDB} deleteFromDB={this.deleteFromDB} updateDB={this.updateDB} data = {this.state.data} />
-        <Dishes />
+        <AddDishes />
+        <Menu />
       </div>
     );
   }

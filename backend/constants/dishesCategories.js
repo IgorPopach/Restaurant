@@ -1,3 +1,3 @@
 
 
-module.exports = ["salad", "first dishes", "deserts", "alcohol"];
+module.exports = ["Salads", "First dishes", "Hot dishes", "Desserts", "Alcohol drinks"];
