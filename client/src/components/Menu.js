@@ -1,83 +1,58 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import MenuItem from './MenuItem';
 
 export default class Menu extends Component {
     state = {
         dishesData: [],
-        saladsCat: [],
-        FirstDishesCat: [],
-        HotDishesCat: [],
-        DessertsCat: [],
-        AlcoholDrinksCat: []
+        filteredData: []
     };
+
     componentDidMount() {
         fetch("/api/Dishes")
             .then(data => data.json())
-            .then(res => this.setState({ dishesData: res.dishesData }))
-            .then(res => this.categoryFilter(this.state.dishesData))
+            .then(res => this.setState({dishesData: res.dishesData}))
+            .then(res => this.setState({filteredData: this.handleFillArraysCategories(this.state.dishesData, this.handleGetCategories(this.state.dishesData))}))
     }
 
-    
-    categoryFilter = (data) => {
-        let saladsCat = [];
-        saladsCat = data.filter(item => {
-            if (item.category === "Salads") {
-                return item
-            }
-            return false
+    handleGetCategories = (data) => {
+        let categoriesNames = [];
+        data.map(item => {
+            if (!categoriesNames.includes(item.category)) categoriesNames.push(item.category)
         });
-        let FirstDishesCat = [];
-        FirstDishesCat = data.filter(item => {
-            if (item.category === "First dishes") {
-                return item
-            }
-            return false
-        });
-        let HotDishesCat = [];
-        HotDishesCat = data.filter(item => {
-            if (item.category === "Hot dishes") {
-                return item
-            }
-            return false
-        });
-        let DessertsCat = [];
-        DessertsCat = data.filter(item => {
-            if (item.category === "Desserts") {
-                return item
-            }
-            return false
-        });
-        let AlcoholDrinksCat = [];
-        AlcoholDrinksCat = data.filter(item => {
-            if (item.category === "Alcohol drinks") {
-                return item
-            }
-            return false
-        });
-        this.setState({
-            saladsCat: saladsCat,
-            FirstDishesCat: FirstDishesCat,
-            HotDishesCat: HotDishesCat,
-            DessertsCat: DessertsCat,
-            AlcoholDrinksCat: AlcoholDrinksCat,
-        })
+        return categoriesNames;
     };
 
-    render(){
-        const {saladsCat, FirstDishesCat, HotDishesCat, DessertsCat, AlcoholDrinksCat} = this.state
+    handleFillArraysCategories = (data, categories) => {
+        let arr = [];
+        categories.map(category => {
+            let arr_items = [];
+            data.map(item => {
+                if (category === item.category) arr_items.push(item);
+                return arr_items;
+            });
+            arr.push(arr_items);
+        });
+        return arr;
+    };
+
+    render() {
+        const {filteredData} = this.state;
         return (
             <div>
-                {saladsCat ? saladsCat.map(dat => {
-                        return <MenuItem
-                            key={dat.ingredients}
-                            name={dat.name}
-                            weight={dat.weight}
-                            price={dat.price}
-                            ingredients={dat.ingredients}
-                        />})
-                    : "ok"
-
-                }
+                {filteredData.map(dat => {
+                    return (<div className="container">
+                        <h2 align="center">{dat[0].category}</h2>
+                        {dat.map(item => {
+                            return <MenuItem
+                                key={item.ingredients}
+                                name={item.name}
+                                weight={item.weight}
+                                price={item.price}
+                                ingredients={item.ingredients}
+                            />
+                        })}
+                    </div>)
+                })}
             </div>
         )
     }
