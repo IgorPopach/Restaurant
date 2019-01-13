@@ -18,7 +18,7 @@ export default class Dishes extends Component {
     };
     render(){
         return (
-            <div>
+            <div className="container">
                 <div style={{ padding: "10px" }}>
                     <input
                         type="text"
