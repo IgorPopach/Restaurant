@@ -12,7 +12,7 @@ export default class Menu extends Component {
         isToggleOn: false,
     };
     componentDidMount() {
-        this.getDataFromDb();
+        // this.getDataFromDb();
         if (!this.state.intervalIsSet) {
           let interval = setInterval(this.getDataFromDb, 88000);
           this.setState({ intervalIsSet: interval });
@@ -31,12 +31,12 @@ export default class Menu extends Component {
 
     // our first get method that uses our backend api to 
     // fetch data from our data base
-    getDataFromDb = () => {
-        fetch("/api/Dishes")
-            .then(data => data.json())
-            .then(res => this.setState({ dishesData: res.dishesData }))
-            .then(res => this.categoryFilter(this.state.dishesData))
-    };
+    // getDataFromDb = () => {
+    //     fetch("/api/Dishes")
+    //         .then(data => data.json())
+    //         .then(res => this.setState({ dishesData: res.dishesData }))
+    //         .then(res => this.categoryFilter(this.state.dishesData))
+    // };
     
     categoryFilter = (data) => {
         let saladsCat = []
