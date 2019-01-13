@@ -3,7 +3,7 @@ import Menu from '../components/Menu';
 
 const MenuPage = (props) => {
     return (
-        <div>
+        <div className="container-fluid">
             <Menu url={props} />
         </div>
     )
