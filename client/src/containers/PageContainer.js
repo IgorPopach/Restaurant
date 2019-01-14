@@ -4,15 +4,15 @@ import AppHeader from "../components/Header";
 import Background from '../images/main.png';
 
 const sectionStyle = {
-  width: "100%",
-  maxHeight: "1600px",
-  backgroundImage: `url(${Background})`,
-  backgroundSize: "cover"
+    minHeight: "1600px",
+    backgroundImage: `url(${Background})`,
+    backgroundRepeat: 'repeat-y',
+    backgroundPosition: 'top',
 };
 
 const PageContainer = props => {
     return (
-        <main style={ sectionStyle }>
+        <main style={sectionStyle}>
             <AppHeader />
             {props.children}
         </main>
