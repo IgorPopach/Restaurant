@@ -11,8 +11,7 @@ class Router extends React.Component {
         return (
             <>
                 <Switch>
-                    <Route exact path="/" exact component={HomePage} />
-                    <Route exact path="/home" component={HomePage} />
+                    <Route exact path="/" component={HomePage} />
                     <Route path="/log-in" component={LogInPage} />
                     <Route path="/menu" component={MenuPage} />
                     <Route path="/add-dishes" component={AddDishes} />
