@@ -2,7 +2,9 @@ import React from 'react';
 
 
 function MenuBasket(props) {
-    // const {id, name, weight, price, ingredients} = props;
+    const {data} = props;
+    let sum=0;
+    console.log(data);
 
 
     return (
@@ -11,17 +13,16 @@ function MenuBasket(props) {
                 ORDER
             </div>
             <div className="card-body">
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Cras justo odio</li>
-                    <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Morbi leo risus</li>
-                    <li className="list-group-item">Porta ac consectetur ac</li>
-                    <li className="list-group-item">Vestibulum at eros</li>
-                </ul>
+                <ol className="list-group list-group-flush">
+                    {data.map(item=>{
+
+                        sum+=item[2];
+                        return <li className="list-group-item">{item[0]}</li>
+                    })}
+                </ol>
+                {sum===0 ? '' : `Total:${sum}`}
             </div>
         </div>
-
-
     );
 }
 

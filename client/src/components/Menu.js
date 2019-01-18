@@ -6,7 +6,7 @@ export default class Menu extends Component {
     state = {
         dishesData: [],
         filteredData: [],
-        order:'k'
+        order: []
     };
 
     componentDidMount() {
@@ -20,6 +20,7 @@ export default class Menu extends Component {
         let categoriesNames = [];
         data.map(item => {
             if (!categoriesNames.includes(item.category)) categoriesNames.push(item.category)
+            return '';
         });
         return categoriesNames;
     };
@@ -33,26 +34,29 @@ export default class Menu extends Component {
                 return arr_items;
             });
             arr.push(arr_items);
+            return '';
         });
         return arr;
     };
-    handlerAddItemToBasket = (price)=>{
-        this.setState({order: price})
+    handlerAddItemToBasket = (data)=>{
+        this.setState(prevState => ({
+            order: [...prevState.order, data]
+        }));
     };
 
     render() {
         const {filteredData} = this.state;
-        console.log(this.state.order);
+        // console.log(this.state.order);
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-9">
+                    <div className="col-8">
                         {filteredData.map(dat => {
-                            return (<div className="container">
+                            return (<div key={dat[0]._id} className="container">
                                 <h2 align="center">{dat[0].category}</h2>
                                 {dat.map(item => {
                                     return <MenuItem
-                                        key={item.id}
+                                        key={item._id}
                                         name={item.name}
                                         weight={item.weight}
                                         price={item.price}
@@ -64,8 +68,8 @@ export default class Menu extends Component {
                             </div>)
                         })}
                     </div>
-                    <div className="col-3">
-                        <MenuBasket />
+                    <div className="col-4">
+                        <MenuBasket data={this.state.order}/>
                     </div>
                 </div>
 
