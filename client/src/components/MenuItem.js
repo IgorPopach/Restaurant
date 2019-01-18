@@ -2,9 +2,7 @@ import React from 'react';
 
 
 function MenuItem(props) {
-    const {id, name, weight, price, ingredients} = props;
-
-
+    const {id, name, weight, price, ingredients,category} = props;
     return (
         <div className="container">
             <div className="card d-flex">
@@ -19,16 +17,13 @@ function MenuItem(props) {
                             </h6>
                         </div>
                         <div className="col-2">
-                            {weight}g
+                            {weight}  {category==='Alcohol drinks'? "ml" : "g"}
                         </div>
                         <div className="col-2">
-                            {/*<input type="text" placeholder="1" required style={{width:25}}/>*/}
+                            {price} $
                         </div>
-                        <div className="col-1">
-                            {price}$
-                        </div>
-                        <div className="col-1">
-                            <button type="button" className="btn btn-primary">Add</button>
+                        <div className="col-2">
+                            <button type="button" className="btn btn-primary" onClick={()=>props.addItem(price)} >Add</button>
                         </div>
                     </div>
                 </div>

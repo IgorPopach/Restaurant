@@ -1,10 +1,12 @@
 import React, {Component} from "react";
+import MenuBasket from './MenuBasket';
 import MenuItem from './MenuItem';
 
 export default class Menu extends Component {
     state = {
         dishesData: [],
-        filteredData: []
+        filteredData: [],
+        order:'k'
     };
 
     componentDidMount() {
@@ -34,25 +36,39 @@ export default class Menu extends Component {
         });
         return arr;
     };
+    handlerAddItemToBasket = (price)=>{
+        this.setState({order: price})
+    };
 
     render() {
         const {filteredData} = this.state;
+        console.log(this.state.order);
         return (
-            <div>
-                {filteredData.map(dat => {
-                    return (<div className="container">
-                        <h2 align="center">{dat[0].category}</h2>
-                        {dat.map(item => {
-                            return <MenuItem
-                                key={item.ingredients}
-                                name={item.name}
-                                weight={item.weight}
-                                price={item.price}
-                                ingredients={item.ingredients}
-                            />
+            <div className="container">
+                <div className="row">
+                    <div className="col-9">
+                        {filteredData.map(dat => {
+                            return (<div className="container">
+                                <h2 align="center">{dat[0].category}</h2>
+                                {dat.map(item => {
+                                    return <MenuItem
+                                        key={item.id}
+                                        name={item.name}
+                                        weight={item.weight}
+                                        price={item.price}
+                                        ingredients={item.ingredients}
+                                        category={item.category}
+                                        addItem={this.handlerAddItemToBasket}
+                                    />
+                                })}
+                            </div>)
                         })}
-                    </div>)
-                })}
+                    </div>
+                    <div className="col-3">
+                        <MenuBasket />
+                    </div>
+                </div>
+
             </div>
         )
     }
