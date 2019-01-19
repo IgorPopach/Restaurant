@@ -46,7 +46,7 @@ export default class Menu extends Component {
 
     render() {
         const {filteredData} = this.state;
-        // console.log(this.state.order);
+        console.log(this.state.order);
         return (
             <div className="container">
                 <div className="row">

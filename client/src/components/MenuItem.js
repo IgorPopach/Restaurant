@@ -23,7 +23,7 @@ function MenuItem(props) {
                             {price} $
                         </div>
                         <div className="col-2">
-                            <button type="button" className="btn btn-primary" onClick={()=>props.addItem([name,weight,price])} >Add</button>
+                            <button type="button" className="btn btn-primary" onClick={()=>props.addItem([name,weight,price,category])} >Add</button>
                         </div>
                     </div>
                 </div>
