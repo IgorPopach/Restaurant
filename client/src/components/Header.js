@@ -15,13 +15,16 @@ class Header extends React.Component {
                         <nav>
                             <ul className="nav nav-tabs nav-justified">
                                 <li className="nav-item">
-                                    <NavLink to="/home" activeClassName="nav-link active">Home</NavLink>
+                                    <NavLink to="/" activeClassName="nav-link active">Home</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink to="/menu" activeClassName="nav-link active">Menu</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink to="/add-dishes" activeClassName="nav-link active">Add Dishes</NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink to="/profile" activeClassName="nav-link active">profile</NavLink>
                                 </li>
                             </ul>
                         </nav>
