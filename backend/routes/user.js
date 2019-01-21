@@ -7,9 +7,10 @@ const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
 const User = require('../models/modelUser');
+const role = require('./../constants/role');
 
 router.post('/register', function(req, res) {
-
+    console.log('req.body',req.body)
     const { errors, isValid } = validateRegisterInput(req.body);
 
     if(!isValid) {
@@ -25,8 +26,11 @@ router.post('/register', function(req, res) {
         }
         else {
             const newUser = new User({
-                name: req.body.name,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
                 email: req.body.email,
+                tel: req.body.tel,
+                role: role,
                 password: req.body.password
             });
             
@@ -72,8 +76,11 @@ router.post('/login', (req, res) => {
                         if(isMatch) {
                             const payload = {
                                 id: user.id,
-                                name: user.name,
-                                avatar: user.avatar
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                email: user.email,
+                                tel: user.tel,
+                                role: user.role
                             }
                             jwt.sign(payload, 'secret', {
                                 expiresIn: 3600
@@ -98,8 +105,11 @@ router.post('/login', (req, res) => {
 router.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
     return res.json({
         id: req.user.id,
-        name: req.user.name,
-        email: req.user.email
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        email: req.user.email,
+        tel: req.user.tel,
+        role: req.user.role,
     });
 });
 

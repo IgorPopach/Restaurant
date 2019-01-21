@@ -3,5 +3,6 @@ const user = {
   lastName: "Conor",
   email: "sara@gmail.com",
   tel: "+312345678",
-  role:"client",
+  role: "client",
+  password: "123456"
 }
