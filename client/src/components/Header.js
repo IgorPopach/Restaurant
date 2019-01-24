@@ -9,13 +9,13 @@ class Header extends React.Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-2">
-                        <Link to="/home">Restaurant</Link>
+                        <Link to="/">Restaurant</Link>
                     </div>
                     <div className="col-8">
                         <nav>
                             <ul className="nav nav-tabs nav-justified">
                                 <li className="nav-item">
-                                    <NavLink to="/home" activeClassName="nav-link active">Home</NavLink>
+                                    <NavLink to="/" activeClassName="nav-link active">Home</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <NavLink to="/menu" activeClassName="nav-link active">Menu</NavLink>
@@ -29,7 +29,7 @@ class Header extends React.Component {
                     <div className="col-2">
                         <ul className="nav justify-content-center">
                             <li className="nav-item">
-                            <Link to="/log-in">Login</Link>
+                            <Link to="/login">Login</Link>
                             </li>
                             <li className="nav-item">
                             <Link to="/register">Register</Link>

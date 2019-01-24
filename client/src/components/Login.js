@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
-import setAuthToken from "./../setAuthToken";
-import jwt_decode from 'jwt-decode';
-import isEmpty from './../validation/is-empty';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from './../actions/authentication';
 
-export default class Login extends Component {
+class Login extends Component {
     state = {
         email: '',
         password: '',
-        isAuthenticated: false,
-        user: {},
         errors: {}
     }
     handleInputChange = (event) => {
@@ -23,40 +20,39 @@ export default class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         }
-        axios.post('/api/users/login', user)
-            .then(res => {
-                const { token } = res.data;
-                console.log('token', token)
-                localStorage.setItem('jwtToken', token);
-                setAuthToken(token);
-                const decoded = jwt_decode(token);
-                this.setCurrentUser(decoded);
-                console.log('state', this.state);
-            })
-            .catch(err => { console.log(err) })
+        this.props.loginUser(user);
     }
 
-    setCurrentUser = (state = this.state, decoded) => {
-        this.setState({
-            isAuthenticated: !isEmpty(decoded),
-            user: decoded
-        })
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.errors) {
+            this.setState({
+                errors: this.props.errors
+            })
+        }
     }
 
     render() {
         return (
             <div className="container">
-                <h2 className="form-signin-heading">Please sign in</h2>
+                <h2 style={{marginBottom: '40px', color: 'white'}}>Please sign in</h2>
                 <form onSubmit={this.handleSubmit} style={{ maxWidth: "300px" }}>
-                    <div>
-                        <input name="email" placeholder="Email" required autoFocus onChange={this.handleInputChange} />
+                    <div className="form-group">
+                        <input type="email" name="email" placeholder="Email" required autoFocus onChange={this.handleInputChange} />
                     </div>
-                    <div>
-                        <input name="password" placeholder="Password" onChange={this.handleInputChange} />
+                    <div className="form-group">
+                        <input type="password" name="password" placeholder="Password" onChange={this.handleInputChange} />
                     </div>
-                    <button className="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
+                    <div className="form-group">
+                        <button className="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
+                    </div>
+                    
                 </form>
             </div>
         )
     }
 }
+
+
+
+
+export default Login;

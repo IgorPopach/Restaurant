@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { withRouter } from 'react-router-dom';
+import { registerUser } from '../actions/authentication';
+import classnames from 'classnames';
 
-
-export default class Register extends Component {
+class Register extends Component {
     state = {
         firstName: '',
         lastName: '',
@@ -29,37 +32,83 @@ export default class Register extends Component {
             password: this.state.password,
             password_confirm: this.state.password_confirm,
         }
-        console.log(user);
-
-        axios.post('/api/users/register', user)
-            .then(res => console.log('res',res))
-            .catch(err => {console.log(err)})
+        this.props.registerUser(user, this.props.history);
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
     }
 
     render() {
+        const { errors } = this.state;
         return (
             <div className="container">
+                <h2 style={{marginBottom: '40px', color: 'white'}}>Registration</h2>
                 <form onSubmit={this.handleSubmit} style={{ maxWidth: "400px" }} >
-                    <h2>Sign Up here</h2>
-                    <div>
-                        <input type="text" name="firstName" placeholder="Your First Name" onChange={this.handleInputChange} />
+                    <div className="form-group">
+                        <input type="text" name="firstName" 
+                        placeholder="Your First Name" 
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.firstName
+                        })}
+                        onChange={this.handleInputChange} 
+                        value={ this.state.firstName }/>
+                        {errors.firstName && (<div className="invalid-feedback">{errors.firstName}</div>)}
                     </div>
-                    <div>
-                        <input type="text" name="lastName" placeholder="Your Last Name" onChange={this.handleInputChange}/>
+                    <div className="form-group">
+                        <input type="text" name="lastName" 
+                        placeholder="Your Last Name" 
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.lastName
+                        })}
+                        onChange={this.handleInputChange} 
+                        value={ this.state.lastName }/>
+                        {errors.lastName && (<div className="invalid-feedback">{errors.lastName}</div>)}
                     </div>
-                    <div>
-                        <input type="text" name="email" placeholder="Your Email" onChange={this.handleInputChange}/>
+                    <div className="form-group">
+                        <input type="email" name="email" 
+                        placeholder="Your Email" 
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.email
+                        })}
+                        onChange={this.handleInputChange} 
+                        value={ this.state.email }/>
+                        {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                     </div>
-                    <div>
-                        <input type="text" name="tel" placeholder="Your Tel number" onChange={this.handleInputChange}/>
+                    <div className="form-group">
+                        <input type="tel" name="tel" 
+                        placeholder="Your Tel number" 
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.tel
+                        })}
+                        onChange={this.handleInputChange} 
+                        value={ this.state.tel }/>
+                        {errors.tel && (<div className="invalid-feedback">{errors.tel}</div>)}
                     </div>
-                    <div>
-                        <input type="text" name="password" placeholder="Your Password" onChange={this.handleInputChange}/>
+                    <div className="form-group">
+                        <input type="password" name="password" 
+                        placeholder="Your Password" 
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.password
+                        })}
+                        onChange={this.handleInputChange} 
+                        value={ this.state.password }/>
+                        {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                     </div>
-                    <div>
-                        <input type="text" name="password_confirm" placeholder="Confirm Password" onChange={this.handleInputChange}/>
+                    <div className="form-group">
+                        <input type="password" name="password_confirm" 
+                        placeholder="Confirm Password" 
+                        className={classnames('form-control form-control-lg', {
+                            'is-invalid': errors.password_confirm
+                        })}
+                        onChange={this.handleInputChange} 
+                        value={ this.state.password_confirm }/>
+                        {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
                     </div>
-                    <div>
+                    <div className="form-group">
                         <button type="submit" className="btn btn-lg btn-primary btn-block">
                             Sign Up
                         </button>
@@ -69,3 +118,13 @@ export default class Register extends Component {
         )
     }
 }
+
+Register.propTypes = {
+    registerUser: PropTypes.func.isRequired
+}
+
+const mapStateToProps = state => ({
+    errors: state.errors
+})
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Register))

@@ -1,19 +1,26 @@
-import React from "react";
-import PageContainer from "../containers/PageContainer";
+import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Router from "../router";
+import { Provider } from "react-redux";
+import store from "./../store";
 
-import 'bootstrap/dist/css/bootstrap.css';
-require('bootstrap');
+import PageContainer from "../containers/PageContainer";
 
-const App = () => {
-    return (
-        <BrowserRouter>
-            <PageContainer>
-                <Router />
-            </PageContainer>
-        </BrowserRouter>
-    );
-};
+import "bootstrap/dist/css/bootstrap.css";
+require("bootstrap");
+
+class App extends Component {
+    render() {
+        return (
+            <Provider store={store}>
+                <BrowserRouter>
+                    <PageContainer>
+                        <Router />
+                    </PageContainer>
+                </BrowserRouter>
+            </Provider>
+        );
+    }
+}
 
 export default App;
