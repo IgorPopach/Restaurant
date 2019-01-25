@@ -14,10 +14,11 @@ class Header extends React.Component {
 
     render() {
         const {isAuthenticated, user} = this.props.auth;
+        console.log("header user", user)
         const userLinks = (
             <ul className="nav justify-content-center">
                 <li className="nav-item">
-                    <span>Hello, {user.name}</span>
+                    <span style = {{color: "white"}}>Hello, {user.firstName}! role: {user.role}:)</span>
                 </li>
                 <li className="nav-item">
                     <Link to="/logout" onClick={this.onLogout}>Logout</Link>

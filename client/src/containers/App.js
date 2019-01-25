@@ -17,6 +17,7 @@ if (localStorage.jwtToken) {
     const decoded = jwt_decode(localStorage.jwtToken);
     store.dispatch(setCurrentUser(decoded));
     const time = Date() / 1000;
+    console.log('decoded',decoded)
     if (decoded.exp < time) {
         store.dispatch(logoutUser());
         window.location.href = '/login';
