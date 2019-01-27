@@ -8,7 +8,6 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const TableRouter = require('./routes/table');
 const DishesRouter = require('./routes/dishes');
-// const AuthRouter = require('./routes/auth');
 
 const API_PORT = 3001;
 const app = express();
@@ -60,7 +59,6 @@ app.use(express.static('./../client/build'));
 
 app.use('/api/users', users);
 app.use('/api/Table', TableRouter);
-// app.use('/api/auth', AuthRouter);
 app.use('/api/Dishes', DishesRouter);
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname + './../client/build/index.html')));

@@ -35,7 +35,7 @@ class Register extends Component {
         this.props.registerUser(user, this.props.history);
     }
     componentWillReceiveProps = (nextProps) => {
-        if(nextProps.auth.isAuthenticated) {
+        if(nextProps.auth.user) {
             this.props.history.push('/')
         }
         if(nextProps.errors) {
@@ -46,7 +46,7 @@ class Register extends Component {
     }
     componentDidMount = () => {
         console.log('this.props.history',this.props.history)
-        if(this.props.auth.isAuthenticated) {
+        if(this.props.auth.user) {
             this.props.history.push('/')
         }
     }

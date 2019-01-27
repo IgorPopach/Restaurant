@@ -1,21 +1,22 @@
-import {SET_CURRENT_USER} from './../actions/types';
-import isEmpty from './../validation/is-empty';
+import {
+    AUTHENTICATION_START,
+    AUTHENTICATION_ERROR,
+    AUTHENTICATION_STORE_USER
+} from './../actions/authentication';
 
 const initialState = {
-    isAuthenticated: false,
-    user: {}
+    user: null,
+    errors: {}
 }
 
 export default function( state = initialState, action) {
     switch (action.type) {
-        case SET_CURRENT_USER: 
-        return {
+        case AUTHENTICATION_START: return {
             ...state,
-            isAuthenticated: !isEmpty(action.payload),
-            user: action.payload
+            isLoading: true,
         }
-        default: {
-            return state
-        }
+        case AUTHENTICATION_STORE_USER: return Object.assign({}, state, { user: action.payload, isLoading: false });
+        case AUTHENTICATION_ERROR: return Object.assign({}, state, { errors: action.payload, isLoading: false });
+        default: return state;
     }
 }

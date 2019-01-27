@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { loginUser } from './../actions/authentication';
 import classnames from 'classnames';
 
 class Login extends Component {
@@ -11,22 +8,25 @@ class Login extends Component {
         password: '',
         errors: {}
     }
+    
     handleInputChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
     handleSubmit = (event) => {
         event.preventDefault();
+        const { email,  password} = this.state;
         const user = {
-            email: this.state.email,
-            password: this.state.password,
+            email,
+            password,
         }
         this.props.loginUser(user);
     }
 
     componentWillReceiveProps = (nextProps) => {
-        if(nextProps.auth.isAuthenticated) {
+        if(nextProps.user) {
             this.props.history.push('/')
         }
         if(nextProps.errors) {
@@ -36,13 +36,13 @@ class Login extends Component {
         }
     }
     componentDidMount = () => {
-        if(this.props.auth.isAuthenticated) {
+        if(this.props.user) {
             this.props.history.push('/')
         }
     }
 
     render() {
-        const { errors } = this.state;
+        const { errors } = this.props;
         return (
             <div className="container">
                 <h2 style={{marginBottom: '40px', color: 'white'}}>Please sign in</h2>
@@ -64,7 +64,9 @@ class Login extends Component {
                             'is-invalid': errors.password
                         })}
                         value={ this.state.password }
-                        onChange={this.handleInputChange} />
+                        onChange={this.handleInputChange}
+                        onBlur={() => alert('Validate me!')}
+                        />
                         {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                     </div>
                     <div className="form-group">
@@ -78,14 +80,11 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    auth: PropTypes.object.isRequired,
+    user: PropTypes.shape({
+        firstName: PropTypes.string.isRequired
+    }),
     errors: PropTypes.object.isRequired,
     loginUser: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    errors: state.errors
-})
-
-export default connect(mapStateToProps, {loginUser})(withRouter(Login));
+export default Login;

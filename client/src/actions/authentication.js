@@ -1,10 +1,33 @@
 import axios from "axios";
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
-import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
 
+import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import setAuthToken from '../setAuthToken';
+
+export const AUTHENTICATION_START = 'AUTHENTICATION_START';
+export const AUTHENTICATION_STORE_USER = 'AUTHENTICATION_STORE_USER';
+export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
+
+export const startAuthentication = () => ({
+    type: AUTHENTICATION_START,
+});
+
+export const storeUser = (user) => ({
+    type: AUTHENTICATION_STORE_USER,
+    payload: user,
+    user,
+    time: new Date().toISOString(),
+});
+
+export const authenticationError = (error) => ({
+    type: AUTHENTICATION_ERROR,
+    payload: error,
+})
+
+
 export const registerUser = (user, history) => dispatch => {
-    axios.post("api/users/register", user)
+    // TODO: avoid side efects in actions
+    return axios.post("api/users/register", user)
         .then(res => history.push("/login"))
         .catch(err => {
             dispatch({
@@ -15,21 +38,17 @@ export const registerUser = (user, history) => dispatch => {
 };
 
 export const loginUser = (user) => dispatch => {
-    axios.post("api/users/login", user)
+    dispatch(startAuthentication())
+    return axios.post("api/users/login", user)
         .then(res => {
             console.log('login response data=>', res.data);
             const { token } = res.data;
             localStorage.setItem('jwtToken', token);
             setAuthToken(token);
             const decoded = jwt_decode(token);
-            dispatch(setCurrentUser(decoded));
+            dispatch(storeUser(decoded));
         })
-        .catch(err => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        })
+        .catch(err => dispatch(authenticationError(err.response.data)))
 }
 
 export const setCurrentUser = decoded => {
@@ -42,6 +61,6 @@ export const setCurrentUser = decoded => {
 export const logoutUser = (history) => dispatch => {
     localStorage.removeItem('jwtToken');
     setAuthToken(false);
-    dispatch(setCurrentUser({}));
+    dispatch(storeUser(false));
     history.push('/login');
 }
