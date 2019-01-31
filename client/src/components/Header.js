@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 class Header extends React.Component {
@@ -30,11 +30,11 @@ class Header extends React.Component {
                         </nav>
                     </div>
                     <div className="col-2">
-                        <ul class="nav justify-content-center">
-                            <li class="nav-item">
+                        <ul className="nav justify-content-center">
+                            <li className="nav-item">
                             <Link to="/log-in">Login</Link>
                             </li>
-                            <li class="nav-item">
+                            <li className="nav-item">
                             <Link to="/register">Register</Link>
                             </li>
                         </ul>

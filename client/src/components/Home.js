@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const Home = props => {
     const sectionStyle = {
@@ -7,7 +7,7 @@ const Home = props => {
     return (
         <div className="container-fluid" style={ sectionStyle }>
             <div className="row">
-                <img src="https://picsum.photos/800/400/?" alt="img" class="rounded mx-auto d-block" />
+                <img src="https://picsum.photos/800/400/?" alt="img" className="rounded mx-auto d-block" />
             </div>
             <div className="row">
                 <h3>The standard Lorem Ipsum passage, used since the 1500s</h3>
@@ -29,6 +29,6 @@ const Home = props => {
             </div>
         </div>
     )
-}
+};
 
 export default Home;

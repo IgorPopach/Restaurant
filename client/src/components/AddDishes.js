@@ -4,7 +4,7 @@ import axios from "axios";
 export default class Dishes extends Component {
     
     putInfoToDB = data => {
-        console.log('dishes data',data)
+        console.log('dishes data',data);
         axios.post("/api/Dishes/add", {
             category: data.category,
             name: data.name,
@@ -17,6 +17,7 @@ export default class Dishes extends Component {
         });
     };
     render(){
+        console.log(this.state);
         return (
             <div className="container">
                 <div style={{ padding: "10px" }}>
