@@ -17,7 +17,7 @@ class Login extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const { email,  password} = this.state;
+        const { email,  password } = this.state;
         const user = {
             email,
             password,
@@ -27,7 +27,11 @@ class Login extends Component {
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.user) {
-            this.props.history.push('/')
+            if (nextProps.user.role === "chef") {
+                this.props.history.push('/chef-orders')
+            } else {
+                this.props.history.push('/')
+            }
         }
         if(nextProps.errors) {
             this.setState({
@@ -36,8 +40,13 @@ class Login extends Component {
         }
     }
     componentDidMount = () => {
-        if(this.props.user) {
-            this.props.history.push('/')
+        const { user, history } = this.props;
+        if(user) {
+            if( user.role === "chef"){
+                history.push('/chef-orders')
+            } else {
+                history.push('/')
+            }
         }
     }
 

@@ -1,22 +1,44 @@
 import React from "react";
-import AppHeader from "../components/Header";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import Background from '../images/main.png';
+import AppHeader from "../components/Header/Header";
 
-const sectionStyle = {
-    minHeight: "1600px",
-    backgroundImage: `url(${Background})`,
-    backgroundRepeat: 'repeat-y',
-    backgroundPosition: 'top',
-};
+import Background from "../images/main.png";
 
 const PageContainer = props => {
-    return (
-        <main style={sectionStyle}>
-            <AppHeader />
-            {props.children}
-        </main>
-    );
+    let sectionStyle = {};
+    const { user } = props.auth;
+
+    function setStyle() {
+        if (user && user.role === "chef") {
+        sectionStyle = {
+            backgroundColor: "#4d4d4d",
+            color: "white",
+            fontSize: "25px"
+        };
+        } else {
+        sectionStyle = {
+            minHeight: "1600px",
+            backgroundImage: `url(${Background})`,
+            backgroundRepeat: "repeat-y",
+            backgroundPosition: "top"
+        };
+        }
+        return sectionStyle;
+    }
+  return (
+    <main style={setStyle()}>
+      <AppHeader />
+      {props.children}
+    </main>
+  );
 };
 
-export default PageContainer;
+const mapStateToProps = store => ({
+  auth: store.auth
+});
+
+export default withRouter(connect(mapStateToProps)(PageContainer));
+
+// export default PageContainer;

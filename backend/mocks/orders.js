@@ -7,6 +7,6 @@
     time: "1546022730545", //start oforder
     weiter: 3, // weiter id
     totalPrice: 10.45, // sum of dishes taked on backend
-    status: "compited" 
+    status: "complited" 
   }
 ]

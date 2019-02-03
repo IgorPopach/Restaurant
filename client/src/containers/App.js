@@ -4,18 +4,18 @@ import Router from "../router";
 import { Provider } from "react-redux";
 import store from "./../store";
 import setAuthToken from "./../setAuthToken";
-import { setCurrentUser, logoutUser } from "./../actions/authentication";
+import { storeUser, logoutUser } from "./../actions/authentication";
 import jwt_decode from "jwt-decode";
 
 import PageContainer from "../containers/PageContainer";
 
 import "bootstrap/dist/css/bootstrap.css";
-require("bootstrap");
+// require("bootstrap");
 
 if (localStorage.jwtToken) {
     setAuthToken(localStorage.jwtToken);
     const decoded = jwt_decode(localStorage.jwtToken);
-    store.dispatch(setCurrentUser(decoded));
+    store.dispatch(storeUser(decoded));
     const time = Date() / 1000;
     console.log('decoded',decoded)
     if (decoded.exp < time) {
