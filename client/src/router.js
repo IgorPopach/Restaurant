@@ -1,6 +1,6 @@
 import React from "react";
 import HomePage from "./containers/HomePage";
-import LogInPage from "./containers/LogInPage";
+import LogInPage from "./containers/LogIn";
 import RegisterPage from "./containers/RegisterPage";
 import MenuPage from "./containers/MenuPage";
 import EditBase from "./containers/EditBase";

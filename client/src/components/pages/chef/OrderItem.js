@@ -21,8 +21,8 @@ class OrderItem extends Component {
     this.setState(state => ({
         dishStatus: !state.dishStatus
     }))
-    const orders = [...this.props.orders];
-    console.log('OrderItem orders', orders);
+    // const orders = [...this.props.orders];
+    // console.log('OrderItem orders', orders);
     // this.props.sendStatusOrders(this.props.orders)
   }
 
