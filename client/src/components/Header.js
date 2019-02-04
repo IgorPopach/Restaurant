@@ -54,6 +54,9 @@ class Header extends React.Component {
                                 <li className="nav-item">
                                     <NavLink to="/add-dishes" activeClassName="nav-link active">Add Dishes</NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink to="/profile" activeClassName="nav-link active">profile</NavLink>
+                                </li>
                             </ul>
                         </nav>
                     </div>

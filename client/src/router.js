@@ -5,6 +5,7 @@ import RegisterPage from "./containers/RegisterPage";
 import MenuPage from "./containers/MenuPage";
 import AddDishes from "./components/AddDishes";
 import { Route, Switch } from "react-router-dom";
+import ProfilePage from "./containers/ProfilePage";
 
 
 class Router extends React.Component {
@@ -16,6 +17,7 @@ class Router extends React.Component {
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/menu" component={MenuPage} />
                 <Route path="/add-dishes" component={AddDishes} />
+                <Route path="/profile" component={ProfilePage} />
                 <Route render={() => (<div>Page not found </div>)} />
             </Switch>
         );

@@ -19,7 +19,7 @@ export default class Menu extends Component {
     handleGetCategories = (data) => {
         let categoriesNames = [];
         data.map(item => {
-            if (!categoriesNames.includes(item.category)) categoriesNames.push(item.category)
+            if (!categoriesNames.includes(item.category)) categoriesNames.push(item.category);
             return '';
         });
         return categoriesNames;

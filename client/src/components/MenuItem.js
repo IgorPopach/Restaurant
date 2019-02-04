@@ -2,7 +2,7 @@ import React from 'react';
 
 
 function MenuItem(props) {
-    const {name, weight, price, ingredients,category} = props;
+    const {name, weight, price, ingredients, category, addItem} = props;
     return (
         <div className="container">
             <div className="card d-flex">
@@ -17,13 +17,15 @@ function MenuItem(props) {
                             </h6>
                         </div>
                         <div className="col-2">
-                            {weight}  {category==='Alcohol drinks'? "ml" : "g"}
+                            {weight} {category === 'Alcohol drinks' ? "ml" : "g"}
                         </div>
                         <div className="col-2">
                             {price} $
                         </div>
                         <div className="col-2">
-                            <button type="button" className="btn btn-primary" onClick={()=>props.addItem([name,weight,price,category])} >Add</button>
+                            <button type="button" className="btn btn-primary"
+                                    onClick={() => addItem([name, weight, price, category])}>Add
+                            </button>
                         </div>
                     </div>
                 </div>
