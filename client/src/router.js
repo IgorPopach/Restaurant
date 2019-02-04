@@ -3,7 +3,8 @@ import HomePage from "./containers/HomePage";
 import LogInPage from "./containers/LogInPage";
 import RegisterPage from "./containers/RegisterPage";
 import MenuPage from "./containers/MenuPage";
-import AddDishes from "./components/AddDishes";
+import EditBase from "./containers/EditBase";
+import ChefPage from "./containers/ChefPage";
 import { Route, Switch } from "react-router-dom";
 import ProfilePage from "./containers/ProfilePage";
 
@@ -16,9 +17,10 @@ class Router extends React.Component {
                 <Route path="/login" component={LogInPage} />
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/menu" component={MenuPage} />
-                <Route path="/add-dishes" component={AddDishes} />
+                <Route path="/edit-base" component={EditBase} />
+                <Route path="/chef-orders" component={ChefPage} />
                 <Route path="/profile" component={ProfilePage} />
-                <Route render={() => (<div>Page not found </div>)} />
+                <Route render={() => (<div style={{color: "white", textAlign: "center", fontSize: "2rem"}}>Page not found </div>)} />
             </Switch>
         );
     }
