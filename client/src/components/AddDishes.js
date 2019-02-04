@@ -1,7 +1,17 @@
-import React, { Component } from "react";
 import axios from "axios";
+import React, { Component } from "react";
+import { connect } from 'react-redux';
 
-export default class Dishes extends Component {
+class Dishes extends Component {
+
+    componentDidMount() {
+       const { user, history } = this.props;
+
+        if (!user || user.role !== 'admin'){
+            history.push('/');
+        }
+
+    }
     
     putInfoToDB = data => {
         console.log('dishes data',data);
@@ -77,3 +87,9 @@ export default class Dishes extends Component {
         )
     }
 }
+
+const mapStateToProps = ({ auth }) => ({
+    user: auth.user,
+})
+
+export default connect(mapStateToProps)(Dishes)
